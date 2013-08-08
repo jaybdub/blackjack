@@ -1,0 +1,13 @@
+Console Blackjack
+===
+
+A console blackjack game written in ruby.  Tested in ubuntu 12.04, ruby 2.0.0.
+
+*Under construction*
+
+Installation
+---
+
+    > git clone https://github.com/jaybdub/blackjack.git
+    > cd blackjack
+    > ./main.rb
