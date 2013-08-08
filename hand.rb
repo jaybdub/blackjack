@@ -1,9 +1,10 @@
 require './card.rb'
 require './ruleset.rb'
+require './stack.rb'
 
-class Hand
-  def initialize(cards=[])
-    @cards = cards# card keys go here
+class Hand < Stack
+  def initialize
+    @cards = []
     @value = 0
   end
   def is_blackjack
@@ -13,7 +14,7 @@ class Hand
   def is_bust
     get_value >= BUST_VALUE
   end
-  def get_value
+  def value
     @value = 0
     #sum non-bust card values
     @cards.each {|key| @value += CARD_VALUES.fetch(key)}
@@ -25,11 +26,5 @@ class Hand
       end
     end
     return @value
-  end
-  def get_cards
-    return @cards
-  end
-  def empty
-    @cards.clear
   end
 end

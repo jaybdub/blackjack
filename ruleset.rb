@@ -6,8 +6,8 @@ DEFAULT_CAN_DOUBLE_SPLIT = false
 DEFAULT_NUM_DECKS = 2
 MIN_NUM_DECKS = 1
 MAX_NUM_DECKS = 8
-MIN_DEALER_HIT_MAX = 1 #this dealers not bad
-MAX_DEALER_HIT_MAX = 21 #but i really I want this dealer :P
+MIN_DEALER_HIT_MAX = 1 #this dealer''s not bad
+MAX_DEALER_HIT_MAX = 21 #but really I want this dealer :P
 
 #For instance rulesetting
 class Ruleset

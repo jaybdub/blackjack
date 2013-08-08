@@ -7,32 +7,52 @@ require './dealer_hand.rb'
 require './stack.rb'
 require './cardset.rb'
 require './dealer.rb'
-require './application.rb'
+require './player.rb'
+
 
 class Blackjack
   def initialize
-    @dealer = Dealer.new(4)
+    @cardset = Cardset.new(1).freeze
+    @drawpile = Stack.new
+    @drawpile.fill(@cardset.cards)
+    @drawpile.shuffle
+    @discardpile = Stack.new
+    @dealer = Dealer.new
+    @player = Player.new(:player1)
   end
-  def play
-    new_game
+  def show_player_hands
+    puts
+    @player.hands.each do |hand|
+      print "player hand:  "
+      self.show_cards(hand.cards)
+      puts " "
+    end
   end
-  private
-    def setup_menu
-      $app.clear_screen
-      show_setup_menu
-      choice = gets.strip.downcase
-    end
-    def new_game
-      @dealer.reset_game
-      puts "Welcome to black jack"
-      puts ""
-      puts "hit enter to deal"
-      gets
-      @dealer.deal_player
-      @dealer.deal_dealer
-      
-    end
-    def show_setup_menu
-      puts "this is blackjack"
-    end
+  def show_dealer_hand
+    puts
+    print "dealer hand:  "
+    show_cards(@dealer.hand.upcards)
+    puts " | *~*~*~holecard~*~*~* |"
+  end
+  def show_cards(cards)
+      cards.each {|key| print " | "+CARD_NAMES.fetch(key).to_s.capitalize+" of "+CARD_SUITS.fetch(key).to_s.capitalize+" | "}
+  end
+  def deal
+    self.deal_player
+    self.deal_dealer
+  end
+  def deal_player
+    @player.add_to_hand(@drawpile.pull_card,0)
+    @player.add_to_hand(@drawpile.pull_card,0)
+  end
+  def deal_dealer
+    @dealer.add_holecard(@drawpile.pull_card)
+    @dealer.add_upcard(@drawpile.pull_card)
+  end
+  def hit_player_hand(hand_key)
+    @player.add_to_hand(@drawpile.pull_card,hand_key)
+  end
+  def hit_dealer
+    @dealer.add_upcard(@drawpile.pull_card)
+  end
 end

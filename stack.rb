@@ -19,7 +19,7 @@ class Stack
   def empty?
     @cards.empty?
   end
-  def get_cards
+  def cards
     return @cards
   end
 end

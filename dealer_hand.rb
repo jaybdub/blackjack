@@ -3,32 +3,25 @@ require './standard_deck_hashes'
 require './ruleset'
 
 class DealerHand < Hand
-  def initialize(holecard=[],upcard=[])
-    @holecard = [holecard]
-    @upcards = [upcard]
+  def initialize
+    @holecard
+    @upcards = []
     @cards = []
-    @cards.push(@upcards)
-    @cards.push(@holecard)
     @value = 0
     @upvalue = 0
   end
-  def hit(card)
+  def add_upcard(card)
     @upcards.push(card)
   end
-  def deal(holecard,upcard)
-    self.empty
-    @holecard = [holecard]
-    @upcards = [upcard]
-    @value = 0
-    @upvalue = 0
+  def set_holecard(card)
+    @holecard = card
   end
-  def get_must_hit
-    self.get_value <= $rules.dealer_hit_max
+  def update_cards
+    @cards.clear
+    @cards.push(@upcards)
+    @cards.push(@holecard)
   end
-  def get_upcards
-    return @upcards
-  end
-  def get_upvalue
+  def upvalue
     @upvalue = 0
     #sum non-bust card values
     @upcards.each {|key| @upvalue += CARD_VALUES.fetch(key)}
@@ -41,8 +34,13 @@ class DealerHand < Hand
     end
     return @upvalue
   end
-  def get_cards
-    @cards = @holecard + @upcards
+  def cards
     return @cards
+  end
+  def holecard
+    return @holecard
+  end
+  def upcards
+    return @upcards
   end
 end

@@ -5,7 +5,8 @@ class Cardset
   def initialize(num_decks=2)
     @cards = CARD_NAMES.keys*num_decks #defines set of cards distrubited amongst play
   end
-  def get_cards
+  def cards
     return @cards
   end
+  
 end
